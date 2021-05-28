@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Calculator Windows",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minic",
+            "args": [
+                 
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "build",
+        },
+
+        {
+            "name": "Debug Calculator OSX",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minic",
+            "args": [
+                 
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
+            "preLaunchTask": "build OSX/Linux",
+        },
+
+        {
+            "name": "Debug Calculator Linux",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/minic",
+            "args": [
+                 
+            ],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "build OSX/Linux",
+        }
+    ]
+}
