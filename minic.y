@@ -69,11 +69,12 @@ ExtDefList: {$$=NULL;}
         | ExtDef ExtDefList {$$=mknode(EXT_DEF_LIST,$1,$2,NULL,yylineno);}
         ; 
 
-/*表示全局变量，结构体，函数定义*/
+/*表示全局变量，结构体，函数声明，函数定义*/
 ExtDef: Specifier ExtDecList SEMI {$$=mknode(EXT_VAR_DEF,$1,$2,NULL,yylineno);}   //全局变量
         //|Specifier SEMI {} //结构体当前未实现
         |Specifier FuncDec CompSt {$$=mknode(FUNC_DEF,$1,$2,$3,yylineno);}         //函数定义
         | error SEMI   {$$=NULL; }
+        |Specifier FuncDec SEMI {$$=mknode(FUNC_DEF,$1,$2,NULL,yylineno);}//函数声明
         ;
  
 /*零个或多个变量的定义VarDec*/

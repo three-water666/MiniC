@@ -63,7 +63,7 @@ struct symbol
     int type;           //变量类型或函数返回值类型
     int  paramnum;    //形式参数个数
     char alias[10];      //别名，为解决嵌套层次使用，使得每一个数据名称唯一
-    char flag;          //符号标记，函数：'F'  变量：'V'   参数：'P'  临时变量：'T'
+    char flag;          //符号标记，函数定义：'F'  变量：'V'   参数：'P'  临时变量：'T' 函数声明：'D'
     int listLength[10];  //数组长度
     int isArray;//是不是数组
 };

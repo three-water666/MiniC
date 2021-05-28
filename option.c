@@ -464,7 +464,7 @@ void prn_symbol()
 
         if (symbolTable.symbols[i].flag == 'F')
         {
-            strcpy(pflag, "函数名");
+            strcpy(pflag, "函数定义");
         }
         else if (symbolTable.symbols[i].flag == 'V')
         {
@@ -477,6 +477,10 @@ void prn_symbol()
         else if (symbolTable.symbols[i].flag == 'T')
         {
             strcpy(pflag, "临时变量");
+        }
+        else if (symbolTable.symbols[i].flag =='D')
+        {
+            strcpy(pflag,"函数声明");
         }
 
         printf("%s\t\t%s\t\t%d\t\t%s\t\t%s\n", symbolTable.symbols[i].name,
@@ -508,6 +512,8 @@ int fillSymbolTable(char *name, char *alias, int level, int type, char flag)
     {
         if (level == 0 && symbolTable.symbols[i].level == 1)
             continue; //外部变量和形参不必比较重名
+        if(flag=='F'&&symbolTable.symbols[i].flag=='D')
+            continue;//函数定义和函数声明不必比较重名
         if (!strcmp(symbolTable.symbols[i].name, name))
             return -1;
     }
@@ -991,7 +997,7 @@ void Exp(struct node *T)
                 semantic_error(T->pos, T->type_id, "函数未定义");
                 break;
             }
-            if (symbolTable.symbols[rtn].flag != 'F')
+            if (symbolTable.symbols[rtn].flag != 'F'&&symbolTable.symbols[rtn].flag != 'D')
             {
                 semantic_error(T->pos, T->type_id, "不是一个函数");
                 break;
@@ -1075,10 +1081,23 @@ void semantic_Analysis(struct node *T)
         case FUNC_DEF: //填写函数定义信息到符号表
             T->ptr[1]->type = !strcmp(T->ptr[0]->type_id, "int") ? INT : !strcmp(T->ptr[0]->type_id, "float") ? FLOAT
                                                                                                               : CHAR; //获取函数返回类型送到含函数名、参数的结点
-            semantic_Analysis(T->ptr[1]);                                                                             //处理函数名和参数结点部分，这里不考虑用寄存器传递参数
-            strcpy(T->ptr[2]->Snext, newLabel());                                                                     //函数体语句执行结束后的位置属性
-            semantic_Analysis(T->ptr[2]);                                                                             //处理函数体结点
-            T->code = merge(3, T->ptr[1]->code, T->ptr[2]->code, genLabel(T->ptr[2]->Snext));                         //函数体的代码作为函数的代码
+                                                                                 
+            if(T->ptr[2])//如果有函数体，即为函数定义，若没有函数体，只是函数声明
+            {
+                semantic_Analysis(T->ptr[1]); //处理函数名和参数结点部分，这里不考虑用寄存器传递参数
+                strcpy(T->ptr[2]->Snext, newLabel());                                                                     //函数体语句执行结束后的位置属性
+                semantic_Analysis(T->ptr[2]);                                                                             //处理函数体结点
+                T->code = merge(3, T->ptr[1]->code, T->ptr[2]->code, genLabel(T->ptr[2]->Snext));                         //函数体的代码作为函数的代码
+            }
+            else
+            {
+                T0=T->ptr[1];
+                rtn=fillSymbolTable(T0->type_id, newAlias(), LEV, T0->type, 'D');//函数声明
+                if(rtn==-1)
+                {
+                    semantic_error(T->pos, T->type_id, "函数重复声明");
+                }
+            }
             break;
         case FUNC_DEC:                                                        //根据返回类型，函数名填写符号表
             rtn = fillSymbolTable(T->type_id, newAlias(), LEV, T->type, 'F'); //函数不在数据区中分配单元，偏移量为0

@@ -1,4 +1,4 @@
-int a;
+int fun(int a);
 
 int main()
 {
