@@ -4,7 +4,7 @@
 #include "option.h"
 int yycolumn=1;
 #define YY_USER_ACTION yylloc.first_line=yylloc.last_line=yylineno; \
-yylloc.first_column=yycolumn;	yylloc.last_column=yycolumn+yyleng-1; yycolumn+=yyleng;
+yylloc.first_column=yycolumn;	yylloc.last_column=yycolumn+yyleng-1; yycolumn+=yyleng;//每次匹配之前执行的动作，yylloc表示当前词法单元所对应的位置信息
 typedef union 
 {
 	int type_int;
@@ -16,7 +16,7 @@ typedef union
 #define YYSTYPE YYLVAL
 void comment();
 %}
-%option yylineno
+%option yylineno//行数自动加一
 
 id   [A-Za-z][A-Za-z0-9]*  
 int    [0-9]+

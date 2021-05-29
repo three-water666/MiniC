@@ -19,7 +19,7 @@ int TypeCheck(char* type);
         char type_char;
 	char   type_id[32];
 	struct node *ptr;
-};
+};//实现多元支持
 
 
 //%type 定义【非终结符】的语义值类型
