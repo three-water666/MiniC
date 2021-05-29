@@ -17,3 +17,12 @@ clean:
 	rm -f minic_lex.c minic_lex.h
 	rm -f minic_yacc.c minic_yacc.h
 	rm -f minic 
+	rm -f tree.png
+	rm -f tree.gv
+
+ast:
+	dot -Tpng tree.gv -o tree.png
+
+
+
+
