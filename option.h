@@ -98,7 +98,7 @@ struct errortable
 }errorTable;
 
 struct node *mknode(int kind,struct node *first,struct node *second, struct node *third,int pos );
-void display(struct node *T, int indent);
+void display(struct node *T, char * fkind);
 char *strcat0(char *s1,char *s2);
 char *newAlias();
 char *newLabel();
@@ -121,3 +121,5 @@ void semantic_Analysis0(struct node *T);
 void semantic_Analysis(struct node *T);
 char* itoa(int num,char* str,int radix);
 char OPTION;
+
+FILE *fp;

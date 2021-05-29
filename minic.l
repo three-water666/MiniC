@@ -16,7 +16,7 @@ typedef union
 #define YYSTYPE YYLVAL
 void comment();
 %}
-%option yylineno//行数自动加一
+%option yylineno
 
 id   [A-Za-z][A-Za-z0-9]*  
 int    [0-9]+

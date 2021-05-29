@@ -72,10 +72,11 @@ extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
 void yyerror(const char* fmt, ...);
-void display(struct node *,int);
+void display(struct node *,char *);
 int TypeCheck(char* type);
+char *RelopCheck(char * relop);
 
-#line 79 "minic_yacc.c" /* yacc.c:339  */
+#line 80 "minic_yacc.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -151,7 +152,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 16 "minic.y" /* yacc.c:355  */
+#line 17 "minic.y" /* yacc.c:355  */
 
 	int    type_int;
 	float  type_float;
@@ -159,7 +160,7 @@ union YYSTYPE
 	char   type_id[32];
 	struct node *ptr;
 
-#line 163 "minic_yacc.c" /* yacc.c:355  */
+#line 164 "minic_yacc.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -190,7 +191,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 194 "minic_yacc.c" /* yacc.c:358  */
+#line 195 "minic_yacc.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -493,13 +494,13 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    65,    65,    68,    69,    73,    75,    76,    77,    81,
-      82,    88,    95,    96,   100,   104,   105,   109,   110,   114,
-     121,   125,   126,   130,   131,   132,   133,   134,   135,   140,
-     141,   145,   149,   150,   154,   155,   163,   164,   165,   166,
-     167,   168,   169,   170,   172,   173,   174,   175,   176,   177,
-     181,   182,   183,   186,   187,   188,   191,   192,   193,   194,
-     198,   199
+       0,    66,    66,    69,    70,    74,    76,    77,    78,    82,
+      83,    89,    96,    97,   101,   105,   106,   110,   111,   115,
+     122,   126,   127,   131,   132,   133,   134,   135,   136,   141,
+     142,   146,   150,   151,   155,   156,   164,   165,   166,   167,
+     168,   169,   170,   171,   173,   174,   175,   176,   177,   178,
+     182,   183,   184,   187,   188,   189,   192,   193,   194,   195,
+     199,   200
 };
 #endif
 
@@ -1478,367 +1479,367 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 65 "minic.y" /* yacc.c:1646  */
+#line 66 "minic.y" /* yacc.c:1646  */
     {semantic_Analysis0((yyvsp[0].ptr));}
-#line 1484 "minic_yacc.c" /* yacc.c:1646  */
+#line 1485 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 68 "minic.y" /* yacc.c:1646  */
+#line 69 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=NULL;}
-#line 1490 "minic_yacc.c" /* yacc.c:1646  */
+#line 1491 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 69 "minic.y" /* yacc.c:1646  */
+#line 70 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(EXT_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1496 "minic_yacc.c" /* yacc.c:1646  */
+#line 1497 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 73 "minic.y" /* yacc.c:1646  */
+#line 74 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(EXT_VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1502 "minic_yacc.c" /* yacc.c:1646  */
+#line 1503 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 75 "minic.y" /* yacc.c:1646  */
+#line 76 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),(yyvsp[0].ptr),yylineno);}
-#line 1508 "minic_yacc.c" /* yacc.c:1646  */
+#line 1509 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 76 "minic.y" /* yacc.c:1646  */
+#line 77 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=NULL; }
-#line 1514 "minic_yacc.c" /* yacc.c:1646  */
+#line 1515 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 77 "minic.y" /* yacc.c:1646  */
+#line 78 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1520 "minic_yacc.c" /* yacc.c:1646  */
+#line 1521 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 81 "minic.y" /* yacc.c:1646  */
+#line 82 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1526 "minic_yacc.c" /* yacc.c:1646  */
+#line 1527 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 82 "minic.y" /* yacc.c:1646  */
+#line 83 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(EXT_DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1532 "minic_yacc.c" /* yacc.c:1646  */
+#line 1533 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 88 "minic.y" /* yacc.c:1646  */
+#line 89 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));(yyval.ptr)->type=TypeCheck((yyvsp[0].type_id));}
-#line 1538 "minic_yacc.c" /* yacc.c:1646  */
+#line 1539 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 95 "minic.y" /* yacc.c:1646  */
+#line 96 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
-#line 1544 "minic_yacc.c" /* yacc.c:1646  */
+#line 1545 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 96 "minic.y" /* yacc.c:1646  */
+#line 97 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(Array,(yyvsp[-3].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1550 "minic_yacc.c" /* yacc.c:1646  */
+#line 1551 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 100 "minic.y" /* yacc.c:1646  */
+#line 101 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
-#line 1556 "minic_yacc.c" /* yacc.c:1646  */
+#line 1557 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 104 "minic.y" /* yacc.c:1646  */
+#line 105 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_DEC,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
-#line 1562 "minic_yacc.c" /* yacc.c:1646  */
+#line 1563 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 105 "minic.y" /* yacc.c:1646  */
+#line 106 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_DEC,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 1568 "minic_yacc.c" /* yacc.c:1646  */
+#line 1569 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 109 "minic.y" /* yacc.c:1646  */
+#line 110 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1574 "minic_yacc.c" /* yacc.c:1646  */
+#line 1575 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 110 "minic.y" /* yacc.c:1646  */
+#line 111 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1580 "minic_yacc.c" /* yacc.c:1646  */
+#line 1581 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 114 "minic.y" /* yacc.c:1646  */
+#line 115 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(PARAM_DEC,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1586 "minic_yacc.c" /* yacc.c:1646  */
+#line 1587 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 121 "minic.y" /* yacc.c:1646  */
+#line 122 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(COMP_STM,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1592 "minic_yacc.c" /* yacc.c:1646  */
+#line 1593 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 125 "minic.y" /* yacc.c:1646  */
+#line 126 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=NULL; }
-#line 1598 "minic_yacc.c" /* yacc.c:1646  */
+#line 1599 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 126 "minic.y" /* yacc.c:1646  */
+#line 127 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(STM_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1604 "minic_yacc.c" /* yacc.c:1646  */
+#line 1605 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 130 "minic.y" /* yacc.c:1646  */
+#line 131 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(EXP_STMT,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1610 "minic_yacc.c" /* yacc.c:1646  */
+#line 1611 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 131 "minic.y" /* yacc.c:1646  */
+#line 132 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1616 "minic_yacc.c" /* yacc.c:1646  */
+#line 1617 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 132 "minic.y" /* yacc.c:1646  */
+#line 133 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(RETURN,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
-#line 1622 "minic_yacc.c" /* yacc.c:1646  */
+#line 1623 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 133 "minic.y" /* yacc.c:1646  */
+#line 134 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(IF_THEN,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1628 "minic_yacc.c" /* yacc.c:1646  */
+#line 1629 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 134 "minic.y" /* yacc.c:1646  */
+#line 135 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(IF_THEN_ELSE,(yyvsp[-4].ptr),(yyvsp[-2].ptr),(yyvsp[0].ptr),yylineno);}
-#line 1634 "minic_yacc.c" /* yacc.c:1646  */
+#line 1635 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 135 "minic.y" /* yacc.c:1646  */
+#line 136 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(WHILE,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1640 "minic_yacc.c" /* yacc.c:1646  */
+#line 1641 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 140 "minic.y" /* yacc.c:1646  */
+#line 141 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=NULL; }
-#line 1646 "minic_yacc.c" /* yacc.c:1646  */
+#line 1647 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 141 "minic.y" /* yacc.c:1646  */
+#line 142 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1652 "minic_yacc.c" /* yacc.c:1646  */
+#line 1653 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 145 "minic.y" /* yacc.c:1646  */
+#line 146 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
-#line 1658 "minic_yacc.c" /* yacc.c:1646  */
+#line 1659 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 149 "minic.y" /* yacc.c:1646  */
+#line 150 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1664 "minic_yacc.c" /* yacc.c:1646  */
+#line 1665 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 150 "minic.y" /* yacc.c:1646  */
+#line 151 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1670 "minic_yacc.c" /* yacc.c:1646  */
+#line 1671 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 154 "minic.y" /* yacc.c:1646  */
+#line 155 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=(yyvsp[0].ptr);}
-#line 1676 "minic_yacc.c" /* yacc.c:1646  */
+#line 1677 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 155 "minic.y" /* yacc.c:1646  */
+#line 156 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
-#line 1682 "minic_yacc.c" /* yacc.c:1646  */
+#line 1683 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 163 "minic.y" /* yacc.c:1646  */
+#line 164 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
-#line 1688 "minic_yacc.c" /* yacc.c:1646  */
+#line 1689 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 164 "minic.y" /* yacc.c:1646  */
+#line 165 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(AND,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"AND");}
-#line 1694 "minic_yacc.c" /* yacc.c:1646  */
+#line 1695 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 165 "minic.y" /* yacc.c:1646  */
+#line 166 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(OR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"OR");}
-#line 1700 "minic_yacc.c" /* yacc.c:1646  */
+#line 1701 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 166 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(RELOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
-#line 1706 "minic_yacc.c" /* yacc.c:1646  */
+#line 167 "minic.y" /* yacc.c:1646  */
+    {(yyval.ptr)=mknode(RELOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,RelopCheck((yyvsp[-1].type_id)));}
+#line 1707 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 167 "minic.y" /* yacc.c:1646  */
+#line 168 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(PLUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUS");}
-#line 1712 "minic_yacc.c" /* yacc.c:1646  */
+#line 1713 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 168 "minic.y" /* yacc.c:1646  */
+#line 169 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(MINUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MINUS");}
-#line 1718 "minic_yacc.c" /* yacc.c:1646  */
+#line 1719 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 169 "minic.y" /* yacc.c:1646  */
+#line 170 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(STAR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"STAR");}
-#line 1724 "minic_yacc.c" /* yacc.c:1646  */
+#line 1725 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 170 "minic.y" /* yacc.c:1646  */
+#line 171 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(DIV,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"DIV");}
-#line 1730 "minic_yacc.c" /* yacc.c:1646  */
+#line 1731 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 172 "minic.y" /* yacc.c:1646  */
+#line 173 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(PLUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
-#line 1736 "minic_yacc.c" /* yacc.c:1646  */
+#line 1737 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 173 "minic.y" /* yacc.c:1646  */
+#line 174 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(USELFPLUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
-#line 1742 "minic_yacc.c" /* yacc.c:1646  */
+#line 1743 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 174 "minic.y" /* yacc.c:1646  */
+#line 175 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(MSELFPLUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
-#line 1748 "minic_yacc.c" /* yacc.c:1646  */
+#line 1749 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 175 "minic.y" /* yacc.c:1646  */
+#line 176 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(MINUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
-#line 1754 "minic_yacc.c" /* yacc.c:1646  */
+#line 1755 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 176 "minic.y" /* yacc.c:1646  */
+#line 177 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(USLEFMINUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
-#line 1760 "minic_yacc.c" /* yacc.c:1646  */
+#line 1761 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 177 "minic.y" /* yacc.c:1646  */
+#line 178 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(MSLEFMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
-#line 1766 "minic_yacc.c" /* yacc.c:1646  */
+#line 1767 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 181 "minic.y" /* yacc.c:1646  */
+#line 182 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=(yyvsp[-1].ptr);}
-#line 1772 "minic_yacc.c" /* yacc.c:1646  */
+#line 1773 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 182 "minic.y" /* yacc.c:1646  */
+#line 183 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(UMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"UMINUS");}
-#line 1778 "minic_yacc.c" /* yacc.c:1646  */
+#line 1779 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 183 "minic.y" /* yacc.c:1646  */
+#line 184 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(NOT,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"NOT");}
-#line 1784 "minic_yacc.c" /* yacc.c:1646  */
+#line 1785 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 186 "minic.y" /* yacc.c:1646  */
+#line 187 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_CALL,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
-#line 1790 "minic_yacc.c" /* yacc.c:1646  */
+#line 1791 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 187 "minic.y" /* yacc.c:1646  */
+#line 188 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FUNC_CALL,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
-#line 1796 "minic_yacc.c" /* yacc.c:1646  */
+#line 1797 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 188 "minic.y" /* yacc.c:1646  */
+#line 189 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(Array_Call,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
-#line 1802 "minic_yacc.c" /* yacc.c:1646  */
+#line 1803 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 191 "minic.y" /* yacc.c:1646  */
+#line 192 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
-#line 1808 "minic_yacc.c" /* yacc.c:1646  */
+#line 1809 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 192 "minic.y" /* yacc.c:1646  */
+#line 193 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
-#line 1814 "minic_yacc.c" /* yacc.c:1646  */
+#line 1815 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 193 "minic.y" /* yacc.c:1646  */
+#line 194 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(FLOAT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_float=(yyvsp[0].type_float);(yyval.ptr)->type=FLOAT;}
-#line 1820 "minic_yacc.c" /* yacc.c:1646  */
+#line 1821 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 194 "minic.y" /* yacc.c:1646  */
+#line 195 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(CHAR,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_char=(yyvsp[0].type_char);(yyval.ptr)->type=CHAR;}
-#line 1826 "minic_yacc.c" /* yacc.c:1646  */
+#line 1827 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 198 "minic.y" /* yacc.c:1646  */
+#line 199 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ARGS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
-#line 1832 "minic_yacc.c" /* yacc.c:1646  */
+#line 1833 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 199 "minic.y" /* yacc.c:1646  */
+#line 200 "minic.y" /* yacc.c:1646  */
     {(yyval.ptr)=mknode(ARGS,(yyvsp[0].ptr),NULL,NULL,yylineno);}
-#line 1838 "minic_yacc.c" /* yacc.c:1646  */
+#line 1839 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
 
-#line 1842 "minic_yacc.c" /* yacc.c:1646  */
+#line 1843 "minic_yacc.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2073,7 +2074,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 202 "minic.y" /* yacc.c:1906  */
+#line 203 "minic.y" /* yacc.c:1906  */
 
 
 int TypeCheck(char* type)
@@ -2090,6 +2091,41 @@ int TypeCheck(char* type)
 	{
 		return CHAR;
 	}
+}
+
+char * RelopCheck(char * relop)
+{
+        if(!strcmp(relop,">"))
+        {
+                return "GT";
+        }
+
+        if(!strcmp(relop,"<"))
+        {
+                return "LT";
+        }
+
+        if(!strcmp(relop,">="))
+        {
+                return "GE";
+        }
+
+        if(!strcmp(relop,"<="))
+        {
+                return "LE";
+        }
+
+        if(!strcmp(relop,"=="))
+        {
+                return "EQ";
+        }
+
+        if(!strcmp(relop,"!="))
+        {
+                return "NEQ";
+        }
+
+
 }
 
 #include<stdarg.h>
