@@ -19,7 +19,7 @@ char * newNode()
     return strcat0("node",s);
 }
 
-void display(struct node *T,char * fkind) //indent控制空格个数生成树形
+void display(struct node *T,char * fkind)//生成.gv文件
 {
     int i = 1;
     int j=0;
@@ -86,11 +86,10 @@ void display(struct node *T,char * fkind) //indent控制空格个数生成树形
             if (T->ptr[0])
             {
                 // printf("%*c函数形参：\n", indent, ' ');
-                //参数暂时没管
+                //含参
                 display(T->ptr[0],a); //显示函数参数列表
             }
-            else
-                // printf("%*c无参函数\n", indent + 4, ' ');
+            // printf("%*c无参函数\n", indent + 4, ' ');
             break;
         case PARAM_LIST:
             strcpy(a,newNode());
@@ -112,7 +111,7 @@ void display(struct node *T,char * fkind) //indent控制空格个数生成树形
 
             strcpy(b,newNode());
             fprintf(fp,"%s->%s\n",a,b);
-            fprintf(fp,"%s[label=\"%s\"]\n",T->ptr[0]->type == INT ? "int" : T->ptr[0]->type == FLOAT ? "float"
+            fprintf(fp,"%s[label=\"%s\"]\n",b,T->ptr[0]->type == INT ? "int" : T->ptr[0]->type == FLOAT ? "float"
                                                                                                     : "char");
             // fprintf(fp,"PARAM_DEC->%s\n",T->ptr[0]->type == INT ? "int" : T->ptr[0]->type == FLOAT ? "float"
             //                                                                                         : "char");
@@ -120,7 +119,7 @@ void display(struct node *T,char * fkind) //indent控制空格个数生成树形
                                                                 
             strcpy(c,newNode());
             fprintf(fp,"%s->%s\n",a,c);
-            fprintf(fp,"%s[label=\"%s\"]\n",T->ptr[1]->type_id);
+            fprintf(fp,"%s[label=\"%s\"]\n",c,T->ptr[1]->type_id);
             // fprintf(fp,"PARAM_DEC->%s\n",T->ptr[1]->type_id);
             break;
         case EXP_STMT:
@@ -229,12 +228,11 @@ void display(struct node *T,char * fkind) //indent控制空格个数生成树形
                 else if (T0->ptr[0]->kind == ASSIGNOP)
                 {
                     // printf("%*c %s =\n ", indent + 4, ' ', T0->ptr[0]->ptr[0]->type_id);
-                    strcpy(c,newNode());
-                    fprintf(fp,"%s->%s\n",a,c);
-                    fprintf(fp,"%s[label=\"ASSIGNOP %s\"]\n",c,T0->ptr[0]->type_id);
+                    // strcpy(c,newNode());
+                    // fprintf(fp,"%s->%s\n",a,c);
+                    // fprintf(fp,"%s[label=\"ASSIGNOP %s\"]\n",c,T0->ptr[0]->type_id);
                     // fprintf(fp,"DEC_LIST->ASSIGNOP_%s\n",T0->ptr[0]->type_id);
                     //显示初始化表达式
-                    //此处未完善
                     display(T->ptr[0],a);
                 }
                 else if (T0->ptr[0]->kind == Array)
@@ -315,6 +313,13 @@ void display(struct node *T,char * fkind) //indent控制空格个数生成树形
             // fprintf(fp,"%s->%s\n",fkind,T->type_id);
             display(T->ptr[0],a);
             break;
+
+        case Array_Call:
+            strcpy(a,newNode());
+            fprintf(fp,"%s->%s\n",fkind,a);
+            fprintf(fp,"%s[label=\"Array_Call %s[%d]\"]\n",a,T->type_id,T->ptr[0]->type_int);
+            break;
+            // fprintf(fp,"%s[label=\"Array_Call %s\"]\n",a,T->type_id);
         case FUNC_CALL:
             // printf("%*c函数调用：\n", indent, ' ');
             // printf("%*c函数名：%s\n", indent + 4, ' ', T->type_id);

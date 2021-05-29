@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
     //     return 0;
     // }
 
-    yyin=fopen(argv[1],"r");
-    // yyin=fopen("./test/b.c","r");//调试用
+    // yyin=fopen(argv[1],"r");
+    yyin=fopen("./test/hanshu1.c","r");//调试用
 	if (!yyin) 
     {
         return 0;
