@@ -86,7 +86,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 17 "minic.y" /* yacc.c:1909  */
+#line 16 "minic.y" /* yacc.c:1909  */
 
 	int    type_int;
 	float  type_float;

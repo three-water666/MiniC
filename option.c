@@ -1964,9 +1964,9 @@ void semantic_Analysis(struct node *T)
             if(T->ptr[2])//如果有函数体，即为函数定义，若没有函数体，只是函数声明
             {
                 semantic_Analysis(T->ptr[1]); //处理函数名和参数结点部分，这里不考虑用寄存器传递参数
-                strcpy(T->ptr[2]->Snext, newLabel());                                                                     //函数体语句执行结束后的位置属性
-                semantic_Analysis(T->ptr[2]);                                                                             //处理函数体结点
-                T->code = merge(3, T->ptr[1]->code, T->ptr[2]->code, genLabel(T->ptr[2]->Snext));                         //函数体的代码作为函数的代码
+                strcpy(T->ptr[2]->Snext, newLabel()); //函数体语句执行结束后的位置属性
+                semantic_Analysis(T->ptr[2]);  //处理函数体结点
+                T->code = merge(3, T->ptr[1]->code, T->ptr[2]->code, genLabel(T->ptr[2]->Snext));//函数体的代码作为函数的代码
             }
             else
             {
@@ -1976,6 +1976,7 @@ void semantic_Analysis(struct node *T)
                 {
                     semantic_error(T->pos, T->type_id, "函数重复声明");
                 }
+                T->code=NULL;
             }
             break;
         case FUNC_DEC:                                                        //根据返回类型，函数名填写符号表

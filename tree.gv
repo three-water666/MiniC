@@ -5,7 +5,7 @@ node2[label="FUNC_DEF"]
 node2->node3
 node3[label="TYPE int"]
 node2->node4
-node4[label="FUNC_DEC fun1"]
+node4[label="FUNC_DEC main"]
 node2->node5
 node5[label="COMP_STM"]
 node5->node6
@@ -17,69 +17,69 @@ node8[label="TYPE int"]
 node7->node9
 node9[label="DEC_LIST"]
 node9->node10
-node10[label="ID b"]
-node1->node11
-node11[label="EXT_DEF_LIST"]
+node10[label="ID a"]
+node6->node11
+node11[label="DEF_LIST"]
 node11->node12
-node12[label="FUNC_DEF"]
+node12[label="VAR_DEF"]
 node12->node13
 node13[label="TYPE int"]
 node12->node14
-node14[label="FUNC_DEC fun2"]
+node14[label="DEC_LIST"]
 node14->node15
-node15[label="PARAM_LIST"]
-node15->node16
-node16[label="PARAM_DEC"]
+node15[label="ID b"]
+node5->node16
+node16[label="STM_LIST"]
 node16->node17
-node17[label="int"]
-node16->node18
-node18[label="c"]
-node12->node19
-node19[label="COMP_STM"]
-node19->node20
-node20[label="DEF_LIST"]
-node20->node21
-node21[label="VAR_DEF"]
+node17[label="EXP_STMT"]
+node17->node18
+node18[label="ASSIGNOP"]
+node18->node19
+node19[label="ID a"]
+node18->node20
+node20[label="INT 10"]
+node16->node21
+node21[label="STM_LIST"]
 node21->node22
-node22[label="TYPE int"]
-node21->node23
-node23[label="DEC_LIST"]
+node22[label="EXP_STMT"]
+node22->node23
+node23[label="ASSIGNOP"]
 node23->node24
-node24[label="ID d"]
-node11->node25
-node25[label="EXT_DEF_LIST"]
-node25->node26
-node26[label="FUNC_DEF"]
+node24[label="ID b"]
+node23->node25
+node25[label="INT 0"]
+node21->node26
+node26[label="STM_LIST"]
 node26->node27
-node27[label="TYPE int"]
-node26->node28
-node28[label="FUNC_DEC main"]
-node26->node29
-node29[label="COMP_STM"]
-node29->node30
-node30[label="DEF_LIST"]
-node30->node31
-node31[label="VAR_DEF"]
+node27[label="IF_THEN_ELSE"]
+node27->node28
+node28[label=">"]
+node28->node29
+node29[label="ID a"]
+node28->node30
+node30[label="INT 5"]
+node27->node31
+node31[label="COMP_STM"]
 node31->node32
-node32[label="TYPE int"]
-node31->node33
-node33[label="DEC_LIST"]
+node32[label="STM_LIST"]
+node32->node33
+node33[label="EXP_STMT"]
 node33->node34
-node34[label="ID a"]
-node29->node35
-node35[label="STM_LIST"]
-node35->node36
-node36[label="EXP_STMT"]
-node36->node37
-node37[label="FUNC_CALL fun1"]
-node35->node38
+node34[label="ASSIGNOP"]
+node34->node35
+node35[label="ID b"]
+node34->node36
+node36[label="INT 1"]
+node27->node37
+node37[label="COMP_STM"]
+node37->node38
 node38[label="STM_LIST"]
 node38->node39
 node39[label="EXP_STMT"]
 node39->node40
-node40[label="FUNC_CALL fun2"]
+node40[label="ASSIGNOP"]
 node40->node41
-node41[label="ARGS"]
-node41->node42
-node42[label="ID a"]
+node41[label="ID b"]
+node40->node42
+node42[label="INT 2"]
 }

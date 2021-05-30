@@ -11,7 +11,6 @@ extern FILE *yyin;
 void yyerror(const char* fmt, ...);
 void display(struct node *,char *);
 int TypeCheck(char* type);
-char *RelopCheck(char * relop);
 %}
 
 %union {
@@ -164,7 +163,7 @@ Exp:  //二元运算
         Exp ASSIGNOP Exp {$$=mknode(ASSIGNOP,$1,$3,NULL,yylineno);strcpy($$->type_id,"ASSIGNOP");}//二元运算
       | Exp AND Exp   {$$=mknode(AND,$1,$3,NULL,yylineno);strcpy($$->type_id,"AND");}//逻辑与
       | Exp OR Exp    {$$=mknode(OR,$1,$3,NULL,yylineno);strcpy($$->type_id,"OR");}//逻辑或
-      | Exp RELOP Exp {$$=mknode(RELOP,$1,$3,NULL,yylineno);strcpy($$->type_id,RelopCheck($2));}//关系表达式
+      | Exp RELOP Exp {$$=mknode(RELOP,$1,$3,NULL,yylineno);strcpy($$->type_id,$2);}//关系表达式
       | Exp PLUS Exp  {$$=mknode(PLUS,$1,$3,NULL,yylineno);strcpy($$->type_id,"PLUS");}//四则运算
       | Exp MINUS Exp {$$=mknode(MINUS,$1,$3,NULL,yylineno);strcpy($$->type_id,"MINUS");}
       | Exp STAR Exp  {$$=mknode(STAR,$1,$3,NULL,yylineno);strcpy($$->type_id,"STAR");}
@@ -218,40 +217,7 @@ int TypeCheck(char* type)
 	}
 }
 
-char * RelopCheck(char * relop)
-{
-        if(!strcmp(relop,">"))
-        {
-                return "GT";
-        }
 
-        if(!strcmp(relop,"<"))
-        {
-                return "LT";
-        }
-
-        if(!strcmp(relop,">="))
-        {
-                return "GE";
-        }
-
-        if(!strcmp(relop,"<="))
-        {
-                return "LE";
-        }
-
-        if(!strcmp(relop,"=="))
-        {
-                return "EQ";
-        }
-
-        if(!strcmp(relop,"!="))
-        {
-                return "NEQ";
-        }
-
-
-}
 
 #include<stdarg.h>
 void yyerror(const char* fmt, ...)
