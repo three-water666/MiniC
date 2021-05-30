@@ -1236,17 +1236,17 @@ void prnIR(struct codenode *head)
             {
                 strcpy(c, h->result.rtype);
             }
-            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", c, opnstr1, opnstr2, resultstr);
+            printf("(%s\t\t,%s\t\t,%s\t\t,%-12s)\n", c, opnstr1, opnstr2, resultstr);
             break;
         case SELFPLUS:
         case SLEFMINUS:
-            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == SELFPLUS ? '+' : '-', opnstr2, opnstr1, opnstr2, resultstr);
+            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == SELFPLUS ? '+' : '-', opnstr1, opnstr2, resultstr);
             break;
         case PLUSASS:
-            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '+', opnstr1, opnstr2, resultstr);
+            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '+', resultstr, opnstr1, resultstr);
             break;
         case MINUSASS:
-            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '-', opnstr1, opnstr2, resultstr);
+            printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '-', resultstr, opnstr1, resultstr);
             break;
         case FUNCTION:
             printf("(FUNCTION\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
@@ -2289,7 +2289,7 @@ void semantic_Analysis0(struct node *T)
     //错误信息
     printf("\n***********************************************************************************\n");
     prnErr();
-    return 0;
+    return;
     // if (OPTION == 's')
     // {
     //     OPTION = ' ';
@@ -2307,19 +2307,19 @@ void semantic_Analysis0(struct node *T)
     //     if (OPTION == 'a')
     //     {
     //         display(T, 0);
-    //         return 0;
+    //         return;
     //     }
     //     //输出中间语言
     //     if (OPTION == 'i')
     //     {
     //         prnIR(T->code);
-    //         return 0;
+    //         return;
     //     }
     //     //输出符号表
     //     if (OPTION == 's')
     //     {
     //         semantic_Analysis(T);
-    //         return 0;
+    //         return;
     //     }
 
     //     //输出全部信息
@@ -2331,13 +2331,13 @@ void semantic_Analysis0(struct node *T)
     //         semantic_Analysis(T);
     //         printf("\n***********************************************************************************\n");
     //         prnIR(T->code);
-    //         return 0;
+    //         return;
     //     }
     // }
     // else
     // {
     //     prnErr();
-    //     return 0;
+    //     return;
     // }
 }
 
