@@ -43,8 +43,8 @@ int TypeCheck(char* type);
 //                 字符串
 %token LP RP LC RC LB RB SEMI COMMA   //用bison对该文件编译时，带参数-d，生成的exp.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码
 //     (  )  {  }  [  ]    ;    ,  
-%token PLUS PLUSASS MINUS MINUSASS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN SELFPLUS SLEFMINUS FOR
-//      +     +=      -     -=      *    /    =       &&  || !  if  else  while  return  ++      --     for  
+%token PLUS PLUSASS MINUS MINUSASS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN SELFPLUS SLEFMINUS FOR BREAK CONTINUE
+//      +     +=      -     -=      *    /    =       &&  || !  if  else  while  return  ++      --     for  break continue
 
 %left ASSIGNOP
 %left OR
@@ -192,6 +192,8 @@ Exp:  //二元运算
       | INT           {$$=mknode(INT,NULL,NULL,NULL,yylineno);$$->type_int=$1;$$->type=INT;}      //整常数常量
       | FLOAT         {$$=mknode(FLOAT,NULL,NULL,NULL,yylineno);$$->type_float=$1;$$->type=FLOAT;} //浮点数常量
       | CHAR          {$$=mknode(CHAR,NULL,NULL,NULL,yylineno);$$->type_char=$1;$$->type=CHAR;} //字符常量
+      | BREAK         {$$=mknode(BREAK,NULL,NULL,NULL,yylineno);}
+      | CONTINUE      {$$=mknode(CONTINUE,NULL,NULL,NULL,yylineno);}
       ;
 
 /*实参列表*/
