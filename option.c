@@ -284,6 +284,16 @@ void display(struct node *T,char * fkind)//生成.gv文件
             fprintf(fp,"%s[label=\"CHAR %c\"]\n",a,T->type_char);
             // fprintf(fp,"%s->CHAR_%c\n",fkind,T->type_char);
             break;
+        case BREAK:
+            strcpy(a,newNode());
+            fprintf(fp,"%s->%s\n",fkind,a);
+            fprintf(fp,"%s[label=\"BREAK\"]\n",a);
+            break;
+        case CONTINUE:
+            strcpy(a,newNode());
+            fprintf(fp,"%s->%s\n",fkind,a);
+            fprintf(fp,"%s[label=\"CONTINUE\"]\n",a);
+            break;
         case ASSIGNOP:
         case AND:
         case OR:
