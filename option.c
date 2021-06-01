@@ -509,6 +509,7 @@ void semantic_error(int line, char *msg1, char *msg2)
     errorTable.index++;
 }
 
+//输出错误
 void prnErr()
 {
     int i;
@@ -571,7 +572,7 @@ void prn_symbol()
     }
 }
 
-//
+//搜索符号表，返回位置，若无返回-1
 int searchSymbolTable(char *name)
 {
     int i;
@@ -618,10 +619,10 @@ int fill_Temp(char *name, int level, int type, char flag)
 }
 
 int LEV = 0;   //层号
-int func_size; //1个函数的活动记录大小
 
+//处理变量列表
 void ext_var_list(struct node *T)
-{ //处理变量列表
+{
     int rtn, num = 1;
     switch (T->kind)
     {
@@ -655,6 +656,7 @@ void ext_var_list(struct node *T)
     }
 }
 
+//函数错误检查
 int match_param(int i, struct node *T)
 {
     int j, num = symbolTable.symbols[i].paramnum;
@@ -685,8 +687,9 @@ int match_param(int i, struct node *T)
     return 1;
 }
 
+//布尔表达式
 void boolExp(struct node *T)
-{ //布尔表达式，参考文献[2]p84的思想
+{ 
     struct opn opn1, opn2, result;
     int op;
     int rtn;
@@ -793,8 +796,9 @@ void boolExp(struct node *T)
     }
 }
 
+ //处理基本表达式
 void Exp(struct node *T)
-{ //处理基本表达式，参考文献[2]p82的思想
+{
     int rtn, num;
     struct node *T0;
     struct opn opn1, opn2, result;
