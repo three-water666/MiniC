@@ -17,23 +17,13 @@ node8[label="TYPE int"]
 node7->node9
 node9[label="DEC_LIST"]
 node9->node10
-node10[label="ASSIGNOP"]
-node10->node11
-node11[label="ID a"]
-node10->node12
-node12[label="INT 1"]
-node6->node13
-node13[label="DEF_LIST"]
-node13->node14
-node14[label="VAR_DEF"]
-node14->node15
-node15[label="TYPE int"]
-node14->node16
-node16[label="DEC_LIST"]
-node16->node17
-node17[label="ID b"]
-node16->node18
-node18[label="ID c"]
-node16->node19
-node19[label="ID b"]
+node10[label="ID b"]
+node9->node11
+node11[label="ID c"]
+node9->node12
+node12[label="ASSIGNOP"]
+node12->node13
+node13[label="ID d"]
+node12->node14
+node14[label="INT 1"]
 }

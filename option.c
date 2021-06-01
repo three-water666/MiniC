@@ -179,11 +179,11 @@ void display(struct node *T,char * fkind)//生成.gv文件
                 else if (T0->ptr[0]->kind == ASSIGNOP)
                 {
                     //显示初始化表达式
-                    display(T->ptr[0],a);
+                    display(T0->ptr[0],a);
                 }
                 else if (T0->ptr[0]->kind == Array)
                 {
-                    display(T->ptr[0],a);
+                    display(T0->ptr[0],a);
                 }
                 T0 = T0->ptr[1];
             }
