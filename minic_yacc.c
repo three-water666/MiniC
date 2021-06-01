@@ -72,7 +72,7 @@ extern int yylineno;
 extern char *yytext;
 extern FILE *yyin;
 void yyerror(const char* fmt, ...);
-void display(struct node *,char *);
+void createAST(struct node *,char *);
 int TypeCheck(char* type);
 
 #line 79 "minic_yacc.c" /* yacc.c:339  */
@@ -1483,7 +1483,7 @@ yyreduce:
     {
         case 2:
 #line 65 "minic.y" /* yacc.c:1646  */
-    {semantic_Analysis0((yyvsp[0].ptr));}
+    {startSemanticAnalysis((yyvsp[0].ptr));}
 #line 1488 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1495,19 +1495,19 @@ yyreduce:
 
   case 4:
 #line 69 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(EXT_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(EXT_DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1500 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 73 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(EXT_VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(EXT_VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
 #line 1506 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 75 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),(yyvsp[0].ptr),yylineno);}
+    {(yyval.ptr)=makeNode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),(yyvsp[0].ptr),yylineno);}
 #line 1512 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1519,7 +1519,7 @@ yyreduce:
 
   case 8:
 #line 77 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(FUNC_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
 #line 1524 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1531,67 +1531,67 @@ yyreduce:
 
   case 10:
 #line 82 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(EXT_DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(EXT_DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1536 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 88 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(TYPE,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));(yyval.ptr)->type=TypeCheck((yyvsp[0].type_id));}
+    {(yyval.ptr)=makeNode(TYPE,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));(yyval.ptr)->type=TypeCheck((yyvsp[0].type_id));}
 #line 1542 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 95 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
+    {(yyval.ptr)=makeNode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
 #line 1548 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 96 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(Array,(yyvsp[-3].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(Array,(yyvsp[-3].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
 #line 1554 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 100 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
+    {(yyval.ptr)=makeNode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
 #line 1560 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 104 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_DEC,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
+    {(yyval.ptr)=makeNode(FUNC_DEC,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
 #line 1566 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 105 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_DEC,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
+    {(yyval.ptr)=makeNode(FUNC_DEC,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
 #line 1572 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 109 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(PARAM_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
 #line 1578 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 110 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(PARAM_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(PARAM_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1584 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 114 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(PARAM_DEC,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(PARAM_DEC,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1590 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 121 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(COMP_STM,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(COMP_STM,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
 #line 1596 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1603,13 +1603,13 @@ yyreduce:
 
   case 22:
 #line 126 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(STM_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(STM_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1608 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 130 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(EXP_STMT,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(EXP_STMT,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
 #line 1614 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1621,25 +1621,25 @@ yyreduce:
 
   case 25:
 #line 132 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(RETURN,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(RETURN,(yyvsp[-1].ptr),NULL,NULL,yylineno);}
 #line 1626 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 133 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(IF_THEN,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(IF_THEN,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1632 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 134 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(IF_THEN_ELSE,(yyvsp[-4].ptr),(yyvsp[-2].ptr),(yyvsp[0].ptr),yylineno);}
+    {(yyval.ptr)=makeNode(IF_THEN_ELSE,(yyvsp[-4].ptr),(yyvsp[-2].ptr),(yyvsp[0].ptr),yylineno);}
 #line 1638 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 135 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(WHILE,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(WHILE,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1644 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1651,25 +1651,25 @@ yyreduce:
 
   case 30:
 #line 141 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(DEF_LIST,(yyvsp[-1].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1656 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 145 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(VAR_DEF,(yyvsp[-2].ptr),(yyvsp[-1].ptr),NULL,yylineno);}
 #line 1662 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 149 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(DEC_LIST,(yyvsp[0].ptr),NULL,NULL,yylineno);}
 #line 1668 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 150 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(DEC_LIST,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1674 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1681,91 +1681,91 @@ yyreduce:
 
   case 35:
 #line 155 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
+    {(yyval.ptr)=makeNode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
 #line 1686 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 36:
 #line 163 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
+    {(yyval.ptr)=makeNode(ASSIGNOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"ASSIGNOP");}
 #line 1692 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 164 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(AND,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"AND");}
+    {(yyval.ptr)=makeNode(AND,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"AND");}
 #line 1698 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 38:
 #line 165 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(OR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"OR");}
+    {(yyval.ptr)=makeNode(OR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"OR");}
 #line 1704 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 166 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(RELOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
+    {(yyval.ptr)=makeNode(RELOP,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-1].type_id));}
 #line 1710 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 40:
 #line 167 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(PLUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUS");}
+    {(yyval.ptr)=makeNode(PLUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUS");}
 #line 1716 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 168 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(MINUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MINUS");}
+    {(yyval.ptr)=makeNode(MINUS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"MINUS");}
 #line 1722 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 42:
 #line 169 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(STAR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"STAR");}
+    {(yyval.ptr)=makeNode(STAR,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"STAR");}
 #line 1728 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 43:
 #line 170 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(DIV,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"DIV");}
+    {(yyval.ptr)=makeNode(DIV,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"DIV");}
 #line 1734 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 44:
 #line 172 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(PLUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
+    {(yyval.ptr)=makeNode(PLUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
 #line 1740 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 173 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(USELFPLUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
+    {(yyval.ptr)=makeNode(USELFPLUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
 #line 1746 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 174 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(MSELFPLUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
+    {(yyval.ptr)=makeNode(MSELFPLUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SELFPLUS");}
 #line 1752 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 47:
 #line 175 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(MINUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
+    {(yyval.ptr)=makeNode(MINUSASS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);strcpy((yyval.ptr)->type_id,"PLUSASS");}
 #line 1758 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 48:
 #line 176 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(USLEFMINUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
+    {(yyval.ptr)=makeNode(USLEFMINUS,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
 #line 1764 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 177 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(MSLEFMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
+    {(yyval.ptr)=makeNode(MSLEFMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"SLEFMINUS");}
 #line 1770 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
@@ -1777,79 +1777,79 @@ yyreduce:
 
   case 51:
 #line 182 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(UMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"UMINUS");}
+    {(yyval.ptr)=makeNode(UMINUS,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"UMINUS");}
 #line 1782 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 183 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(NOT,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"NOT");}
+    {(yyval.ptr)=makeNode(NOT,(yyvsp[0].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,"NOT");}
 #line 1788 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 186 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_CALL,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
+    {(yyval.ptr)=makeNode(FUNC_CALL,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
 #line 1794 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 187 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FUNC_CALL,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
+    {(yyval.ptr)=makeNode(FUNC_CALL,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-2].type_id));}
 #line 1800 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 55:
 #line 188 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(Array_Call,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
+    {(yyval.ptr)=makeNode(Array_Call,(yyvsp[-1].ptr),NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[-3].type_id));}
 #line 1806 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 56:
 #line 191 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
+    {(yyval.ptr)=makeNode(ID,NULL,NULL,NULL,yylineno);strcpy((yyval.ptr)->type_id,(yyvsp[0].type_id));}
 #line 1812 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 57:
 #line 192 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
+    {(yyval.ptr)=makeNode(INT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_int=(yyvsp[0].type_int);(yyval.ptr)->type=INT;}
 #line 1818 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 58:
 #line 193 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(FLOAT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_float=(yyvsp[0].type_float);(yyval.ptr)->type=FLOAT;}
+    {(yyval.ptr)=makeNode(FLOAT,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_float=(yyvsp[0].type_float);(yyval.ptr)->type=FLOAT;}
 #line 1824 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 194 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(CHAR,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_char=(yyvsp[0].type_char);(yyval.ptr)->type=CHAR;}
+    {(yyval.ptr)=makeNode(CHAR,NULL,NULL,NULL,yylineno);(yyval.ptr)->type_char=(yyvsp[0].type_char);(yyval.ptr)->type=CHAR;}
 #line 1830 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 195 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(BREAK,NULL,NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(BREAK,NULL,NULL,NULL,yylineno);}
 #line 1836 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 196 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(CONTINUE,NULL,NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(CONTINUE,NULL,NULL,NULL,yylineno);}
 #line 1842 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 62:
 #line 200 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ARGS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
+    {(yyval.ptr)=makeNode(ARGS,(yyvsp[-2].ptr),(yyvsp[0].ptr),NULL,yylineno);}
 #line 1848 "minic_yacc.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 201 "minic.y" /* yacc.c:1646  */
-    {(yyval.ptr)=mknode(ARGS,(yyvsp[0].ptr),NULL,NULL,yylineno);}
+    {(yyval.ptr)=makeNode(ARGS,(yyvsp[0].ptr),NULL,NULL,yylineno);}
 #line 1854 "minic_yacc.c" /* yacc.c:1646  */
     break;
 

@@ -27,7 +27,7 @@ struct node
     char Snext[15];               //该结点对应语句执行后的下一条语句位置标号
     char Bnext[15];               //break 语句下一条标号，也可判断break语句是否合法
     char Cnext[15];              //continue 语句下一条标号
-    struct codenode *code;         //该结点四元组链表头指针
+    struct irnode *ir;         //该结点四元组链表头指针
     int  type;                   //结点对应值的类型,INT,CHAR,FLOAT
     int pos;                      //语法单位所在位置行号,用于报错
     int num;                      //用于储存变量个数
@@ -78,11 +78,11 @@ struct opn
 };
 
 //四元式结点,采用双向循环链表存放中间语言代码
-struct codenode 
+struct irnode 
 {
     int  op;                          //运算符种类
     struct opn opn1,opn2,result;          //2个操作数和运算结果
-    struct codenode  *next,*prior;   //双向链表，利于合并
+    struct irnode  *next,*prior;   //双向链表，利于合并
 };
 
 
@@ -103,29 +103,29 @@ struct errortable
 
 
 //函数声明
-struct node *mknode(int kind,struct node *first,struct node *second, struct node *third,int pos );
-void display(struct node *T, char * fkind);
-char *strcat0(char *s1,char *s2);
-char *newAlias();
-char *newLabel();
-char *newTemp();
-struct codenode *genIR(int op,struct opn opn1,struct opn opn2,struct opn result);
-struct codenode *genLabel(char *label);
-struct codenode *genGoto(char *label);
-struct codenode *merge(int num,...);
-void prnIR(struct codenode *head);
-void semantic_error(int line,char *msg1,char *msg2);
-void prn_symbol();
+struct node *makeNode(int kind,struct node *first,struct node *second, struct node *third,int pos );
+void createAST(struct node *T, char * fkind);
+char *stringConcatenate(char *s1,char *s2);
+char *newValueName();
+char *newLabelName();
+char *newTempName();
+struct irnode *getIR(int op,struct opn opn1,struct opn opn2,struct opn result);
+struct irnode *getLabelIR(char *label);
+struct irnode *getGotoIR(char *label);
+struct irnode *mergeIR(int num,...);
+void printIR(struct irnode *head);
+void semanticError(int line,char *msg1,char *msg2);
+void printSymbol();
 int searchSymbolTable(char *name);
 int fillSymbolTable(char *name,char *alias,int level,int type,char flag) ;
-int fill_Temp(char *name,int level,int type,char flag);
-void ext_var_list(struct node *T);
-int  match_param(int i,struct node *T);
+int fillTemp(char *name,int level,int type,char flag);
+void dealExtvarlist(struct node *T);
+int  matchParam(int i,struct node *T);
 void boolExp(struct node *T);
 void Exp(struct node *T);
-void semantic_Analysis0(struct node *T);
-void semantic_Analysis(struct node *T);
-char* itoa(int num,char* str,int radix);
+void startSemanticAnalysis(struct node *T);
+void semanticAnalysis(struct node *T);
+char* intToChar(int num,char* str,int radix);
 
 //全局变量
 char OPTION;//minic操作
