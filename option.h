@@ -48,6 +48,8 @@ struct node
     int place;                //表示结点对应的变量或运算结果符号表的位置序号
     char Etrue[15],Efalse[15];      //对布尔表达式的翻译时，真假转移目标的标号
     char Snext[15];               //该结点对应语句执行后的下一条语句位置标号
+    char Bnext[15];               //break 语句下一条标号，也可判断break语句是否合法
+    char Cnext[15];              //continue 语句下一条标号
     struct codenode *code;         //该结点中间代码链表头指针
     char op[10];
     int  type;                   //结点对应值的类型

@@ -928,6 +928,26 @@ void Exp(struct node *T)
             strcpy(result.id, symbolTable.symbols[T->place].alias);
             T->code = genIR(ASSIGNOP, opn1, opn2, result);
             break;
+        case BREAK:
+            if(strcmp(T->Bnext,""))
+            {
+                T->code=genGoto(T->Bnext);
+            }
+            else
+            {
+                semantic_error(T->pos,"","break语句使用位置有误");
+            }
+            break;
+        case CONTINUE:
+            if(strcmp(T->Cnext,""))
+            {
+                T->code=genGoto(T->Cnext);
+            }
+            else
+            {
+                semantic_error(T->pos,"","continue语句使用位置有误");
+            }
+            break;
         case ASSIGNOP:
             if (T->ptr[0]->kind != ID && T->ptr[0]->kind != Array_Call)
             {
@@ -1333,6 +1353,8 @@ void semantic_Analysis(struct node *T)
             if (T->ptr[1])
             {
                 strcpy(T->ptr[1]->Snext, T->Snext); //S.next属性向下传递
+                strcpy(T->ptr[1]->Bnext,T->Bnext);//如果有break的出口点
+                strcpy(T->ptr[1]->Cnext,T->Cnext);//如果有continue语句
                 semantic_Analysis(T->ptr[1]);       //处理复合语句的语句序列
                 T->code = merge(2, T->code, T->ptr[1]->code);
             }
@@ -1437,6 +1459,8 @@ void semantic_Analysis(struct node *T)
                 T->code = NULL;
                 break;
             }              //空语句序列
+            strcpy(T->ptr[0]->Bnext,T->Bnext);
+            strcpy(T->ptr[0]->Cnext,T->Cnext);//如果有continue语句
             if (T->ptr[1]) //2条以上语句连接，生成新标号作为第一条语句结束后到达的位置
             {
                 strcpy(T->ptr[0]->Snext, newLabel());
@@ -1450,6 +1474,8 @@ void semantic_Analysis(struct node *T)
             if (T->ptr[1])
             { //2条以上语句连接,S.next属性向下传递
                 strcpy(T->ptr[1]->Snext, T->Snext);
+                strcpy(T->ptr[1]->Bnext,T->Bnext);//如果有break的出口点
+                strcpy(T->ptr[1]->Cnext,T->Cnext);//如果有continue语句
                 semantic_Analysis(T->ptr[1]);
                 //序列中第1条为表达式语句，返回语句，复合语句时，第2条前不需要标号
                 if (T->ptr[0]->kind == RETURN || T->ptr[0]->kind == EXP_STMT || T->ptr[0]->kind == COMP_STM)
@@ -1467,6 +1493,8 @@ void semantic_Analysis(struct node *T)
             strcpy(T->ptr[0]->Efalse, T->Snext);
             boolExp(T->ptr[0]);
             strcpy(T->ptr[1]->Snext, T->Snext);
+            strcpy(T->ptr[1]->Bnext,T->Bnext);//如果有break的出口点
+            strcpy(T->ptr[1]->Cnext,T->Cnext);//如果有continue语句
             semantic_Analysis(T->ptr[1]); //if子句
             T->code = merge(3, T->ptr[0]->code, genLabel(T->ptr[0]->Etrue), T->ptr[1]->code);
             break;
@@ -1475,22 +1503,30 @@ void semantic_Analysis(struct node *T)
             strcpy(T->ptr[0]->Efalse, newLabel());
             boolExp(T->ptr[0]); //条件，要单独按短路代码处理
             strcpy(T->ptr[1]->Snext, T->Snext);
+            strcpy(T->ptr[1]->Bnext,T->Bnext);//如果有break的出口点
+            strcpy(T->ptr[1]->Cnext,T->Cnext);//如果有continue语句
             semantic_Analysis(T->ptr[1]); //if子句
             strcpy(T->ptr[2]->Snext, T->Snext);
+            strcpy(T->ptr[2]->Bnext,T->Bnext);//如果有break的出口点
+            strcpy(T->ptr[2]->Cnext,T->Cnext);//如果有continue语句
             semantic_Analysis(T->ptr[2]); //else子句
             T->code = merge(6, T->ptr[0]->code, genLabel(T->ptr[0]->Etrue), T->ptr[1]->code,
                             genGoto(T->Snext), genLabel(T->ptr[0]->Efalse), T->ptr[2]->code);
             break;
         case WHILE:
-            strcpy(T->ptr[0]->Etrue, newLabel()); //子结点继承属性的计算
-            strcpy(T->ptr[0]->Efalse, T->Snext);
+            strcpy(T->ptr[0]->Etrue, newLabel()); //真入口
+            strcpy(T->ptr[0]->Efalse, T->Snext);//假出口
             boolExp(T->ptr[0]); //循环条件，要单独按短路代码处理
-            strcpy(T->ptr[1]->Snext, newLabel());
+            strcpy(T->ptr[1]->Snext, newLabel());//循环开始点
+            strcpy(T->ptr[1]->Bnext,T->Snext);//如果有break的出口点
+            strcpy(T->ptr[1]->Cnext,T->ptr[1]->Snext);//如果有continue语句
             semantic_Analysis(T->ptr[1]); //循环体
             T->code = merge(5, genLabel(T->ptr[1]->Snext), T->ptr[0]->code,
                             genLabel(T->ptr[0]->Etrue), T->ptr[1]->code, genGoto(T->ptr[1]->Snext));
             break;
         case EXP_STMT:
+            strcpy(T->ptr[0]->Bnext,T->Bnext);//如果有break的出口点
+            strcpy(T->ptr[0]->Cnext,T->Cnext);//如果有continue语句
             semantic_Analysis(T->ptr[0]);
             T->code = T->ptr[0]->code;
             break;
@@ -1523,6 +1559,8 @@ void semantic_Analysis(struct node *T)
         case INT:
         case FLOAT:
         case CHAR:
+        case BREAK:
+        case CONTINUE:
         case ASSIGNOP:
         case AND:
         case OR:
