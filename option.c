@@ -231,10 +231,12 @@ void createAST(struct node *T,char * fkind)
         case RELOP:
         case PLUS:
         case PLUSASS:
-        case SELFPLUS:
+        case USELFPLUS:
+        case MSELFPLUS:
+        case USLEFMINUS:
+        case MSLEFMINUS:
         case MINUS:
         case MINUSASS:
-        case SLEFMINUS:
         case STAR:
         case DIV:
             strcpy(a,newNode());
