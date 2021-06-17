@@ -23,6 +23,9 @@ clean:
 ast:
 	dot -Tpng tree.gv -o tree.png
 
+flowGraph:
+	dot -Tpng flowGraph.gv -o flowGraph.png
+
 
 
 

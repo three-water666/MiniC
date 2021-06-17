@@ -416,6 +416,11 @@ void printIR(struct irnode *head)
 {
     char opnstr1[32], opnstr2[32], resultstr[32];
     struct irnode *h = head;
+    char f[100];
+    char c[100];
+    fprintf(fp1,"start[label=\"\n");
+    strcpy(f,"start");
+    strcpy(c,"start");
     if(h==NULL)
     {
         return;
@@ -446,10 +451,12 @@ void printIR(struct irnode *head)
             if (h->result.kind == Array_Call)
             {
                 printf("([]=\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+                fprintf(fp1,"([]=\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             }
             else
             {
                 printf("(:=\t\t,%s\t\t,_\t\t,%-12s)\n", opnstr1, resultstr);
+                fprintf(fp1,"(:=\t\t,%s\t\t,_\t\t,%-12s)\n", opnstr1, resultstr);
             }
             break;
         case PLUS:
@@ -459,7 +466,11 @@ void printIR(struct irnode *head)
             printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == PLUS ? '+' : h->op == MINUS ? '-'
                                                                        : h->op == STAR    ? '*'
                                                                                           : '\\',
-                   opnstr1, opnstr2, resultstr);
+                    opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == PLUS ? '+' : h->op == MINUS ? '-'
+                                                                : h->op == STAR    ? '*'
+                                                                                   : '\\',
+                    opnstr1, opnstr2, resultstr);
             break;
         case AND:
         case OR:
@@ -477,46 +488,106 @@ void printIR(struct irnode *head)
                 strcpy(c, h->result.rtype);
             }
             printf("(%s\t\t,%s\t\t,%s\t\t,%-12s)\n", c, opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(%s\t\t,%s\t\t,%s\t\t,%-12s)\n", c, opnstr1, opnstr2, resultstr);
             break;
         case SELFPLUS:
         case SLEFMINUS:
             printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == SELFPLUS ? '+' : '-', opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", h->op == SELFPLUS ? '+' : '-', opnstr1, opnstr2, resultstr);
             break;
         case PLUSASS:
             printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '+', resultstr, opnstr1, resultstr);
+            fprintf(fp1,"(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '+', resultstr, opnstr1, resultstr);
             break;
         case MINUSASS:
             printf("(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '-', resultstr, opnstr1, resultstr);
+            fprintf(fp1,"(%c\t\t,%s\t\t,%s\t\t,%-12s)\n", '-', resultstr, opnstr1, resultstr);
             break;
         case FUNCTION:
             printf("(FUNCTION\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"(FUNCTION\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case PARAM:
             printf("(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case LABEL:
             printf("(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,h->result.id);
+            fprintf(fp1,"%s->%s",f,c);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
+            // fprintf(fp1,"(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case GOTO:
             printf("(J\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"(J\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case JLE: // <=
             printf("(JLE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JLE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case JLT: // <
             printf("(JLT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JLT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case JGE: // >=
             printf("(JGE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JGE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case JGT: // >
             printf("(JGT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JGT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case EQ: // ==
             printf("(JEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case NEQ: // !=
             printf("(JNEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"(JNEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            fprintf(fp1,"\"]\n");
+            strcpy(c,newNode());
+            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s",f,resultstr);
+            strcpy(f,c);
+            fprintf(fp1,"%s[label=\"\n",c);
             break;
         case ARG:
             printf("(ARG\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
@@ -527,15 +598,18 @@ void printIR(struct irnode *head)
             if (h->result.kind)
             {
                 printf("(RETURN\t\t,_\t\t,_\t\t,%-12s)\n", resultstr);
+                fprintf(fp1,"(RETURN\t\t,_\t\t,_\t\t,%-12s)\n", resultstr);
             }
             else
             {
                 printf("(RETURN\t\t,_\t\t,_\t\t,_\t\t)\n");
+                fprintf(fp1,"(RETURN\t\t,_\t\t,_\t\t,_\t\t)\n");
             }
             break;
         }
         h = h->next;
     } while (h != head);
+    fprintf(fp1,"\"]\n");
 }
 
 //收集错误信息，最后一次性显示
@@ -1568,7 +1642,16 @@ void startSemanticAnalysis(struct node *T)
     semanticAnalysis(T);
     //四元式
     printf("\n***********************************************************************************\n");
+    fp1=fopen("./flowGraph.gv","w+");
+    if(fp1==NULL)
+    {
+        printf("文件打开失败\n");
+        return;
+    }
+    fprintf(fp1,"digraph G {\n");
     printIR(T->ir);
+    fprintf(fp1,"}\n");
+    fclose(fp1);
     //错误信息
     printf("\n***********************************************************************************\n");
     prnErr();

@@ -130,3 +130,4 @@ char* intToChar(int num,char* str,int radix);//int转换为字符串
 //全局变量
 char OPTION;//minic操作
 FILE *fp;//用于储存抽象语法树生成的文件
+FILE *fp1;//用于存储数据流图生成的文件

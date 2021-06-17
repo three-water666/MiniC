@@ -5,7 +5,7 @@ node2[label="EXT_VAR_DEF"]
 node2->node3
 node3[label="TYPE int"]
 node2->node4
-node4[label="Array a[10]"]
+node4[label="ID a"]
 node1->node5
 node5[label="EXT_DEF_LIST"]
 node5->node6
@@ -25,75 +25,165 @@ node12[label="TYPE int"]
 node11->node13
 node13[label="DEC_LIST"]
 node13->node14
-node14[label="Array b[10]"]
-node10->node15
-node15[label="DEF_LIST"]
-node15->node16
-node16[label="VAR_DEF"]
+node14[label="ID b"]
+node13->node15
+node15[label="ID c"]
+node10->node16
+node16[label="DEF_LIST"]
 node16->node17
-node17[label="TYPE char"]
-node16->node18
-node18[label="DEC_LIST"]
-node18->node19
-node19[label="Array c[10]"]
-node15->node20
-node20[label="DEF_LIST"]
-node20->node21
-node21[label="VAR_DEF"]
+node17[label="VAR_DEF"]
+node17->node18
+node18[label="TYPE int"]
+node17->node19
+node19[label="DEC_LIST"]
+node19->node20
+node20[label="Array d[10]"]
+node9->node21
+node21[label="STM_LIST"]
 node21->node22
-node22[label="TYPE float"]
-node21->node23
-node23[label="DEC_LIST"]
+node22[label="EXP_STMT"]
+node22->node23
+node23[label="ASSIGNOP"]
 node23->node24
-node24[label="Array d[10]"]
-node9->node25
-node25[label="STM_LIST"]
-node25->node26
-node26[label="EXP_STMT"]
+node24[label="ID b"]
+node23->node25
+node25[label="INT 10"]
+node21->node26
+node26[label="STM_LIST"]
 node26->node27
-node27[label="ASSIGNOP"]
+node27[label="EXP_STMT"]
 node27->node28
-node28[label="Array_Call a[1]"]
-node27->node29
-node29[label="INT 1"]
-node25->node30
-node30[label="STM_LIST"]
-node30->node31
-node31[label="EXP_STMT"]
+node28[label="ASSIGNOP"]
+node28->node29
+node29[label="ID c"]
+node28->node30
+node30[label="INT 0"]
+node26->node31
+node31[label="STM_LIST"]
 node31->node32
-node32[label="ASSIGNOP"]
+node32[label="EXP_STMT"]
 node32->node33
-node33[label="Array_Call b[1]"]
-node32->node34
-node34[label="INT 1"]
-node30->node35
-node35[label="STM_LIST"]
-node35->node36
-node36[label="EXP_STMT"]
+node33[label="ASSIGNOP"]
+node33->node34
+node34[label="ID a"]
+node33->node35
+node35[label="INT 0"]
+node31->node36
+node36[label="STM_LIST"]
 node36->node37
-node37[label="ASSIGNOP"]
+node37[label="EXP_STMT"]
 node37->node38
-node38[label="Array_Call a[11]"]
-node37->node39
-node39[label="INT 1"]
-node35->node40
+node38[label="SELFPLUS"]
+node38->node39
+node39[label="ID b"]
+node36->node40
 node40[label="STM_LIST"]
 node40->node41
 node41[label="EXP_STMT"]
 node41->node42
 node42[label="ASSIGNOP"]
 node42->node43
-node43[label="Array_Call b[11]"]
+node43[label="ID b"]
 node42->node44
-node44[label="INT 1"]
-node40->node45
-node45[label="STM_LIST"]
-node45->node46
-node46[label="EXP_STMT"]
-node46->node47
-node47[label="ASSIGNOP"]
+node44[label="PLUS"]
+node44->node45
+node45[label="ID b"]
+node44->node46
+node46[label="ID c"]
+node40->node47
+node47[label="STM_LIST"]
 node47->node48
-node48[label="Array_Call c[1]"]
-node47->node49
-node49[label="INT 1"]
+node48[label="WHILE"]
+node48->node49
+node49[label=">"]
+node49->node50
+node50[label="ID b"]
+node49->node51
+node51[label="INT 0"]
+node48->node52
+node52[label="COMP_STM"]
+node52->node53
+node53[label="DEF_LIST"]
+node53->node54
+node54[label="VAR_DEF"]
+node54->node55
+node55[label="TYPE int"]
+node54->node56
+node56[label="DEC_LIST"]
+node56->node57
+node57[label="ID a"]
+node52->node58
+node58[label="STM_LIST"]
+node58->node59
+node59[label="EXP_STMT"]
+node59->node60
+node60[label="ASSIGNOP"]
+node60->node61
+node61[label="ID a"]
+node60->node62
+node62[label="INT 1"]
+node58->node63
+node63[label="STM_LIST"]
+node63->node64
+node64[label="IF_THEN"]
+node64->node65
+node65[label=">"]
+node65->node66
+node66[label="ID c"]
+node65->node67
+node67[label="INT 3"]
+node64->node68
+node68[label="COMP_STM"]
+node68->node69
+node69[label="STM_LIST"]
+node69->node70
+node70[label="EXP_STMT"]
+node70->node71
+node71[label="BREAK"]
+node63->node72
+node72[label="STM_LIST"]
+node72->node73
+node73[label="EXP_STMT"]
+node73->node74
+node74[label="ASSIGNOP"]
+node74->node75
+node75[label="ID b"]
+node74->node76
+node76[label="MINUS"]
+node76->node77
+node77[label="ID b"]
+node76->node78
+node78[label="INT 1"]
+node72->node79
+node79[label="STM_LIST"]
+node79->node80
+node80[label="IF_THEN"]
+node80->node81
+node81[label=">"]
+node81->node82
+node82[label="ID a"]
+node81->node83
+node83[label="INT 5"]
+node80->node84
+node84[label="COMP_STM"]
+node84->node85
+node85[label="STM_LIST"]
+node85->node86
+node86[label="EXP_STMT"]
+node86->node87
+node87[label="CONTINUE"]
+node79->node88
+node88[label="STM_LIST"]
+node88->node89
+node89[label="EXP_STMT"]
+node89->node90
+node90[label="ASSIGNOP"]
+node90->node91
+node91[label="ID b"]
+node90->node92
+node92[label="PLUS"]
+node92->node93
+node93[label="ID b"]
+node92->node94
+node94[label="INT 1"]
 }
