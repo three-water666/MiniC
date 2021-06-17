@@ -1,5 +1,6 @@
 #include "option.h"
 #include "string.h"
+//生成抽象语法树节点
 struct node *makeNode(int kind, struct node *first, struct node *second, struct node *third, int pos)
 {
     struct node *T = (struct node *)malloc(sizeof(struct node));
@@ -10,7 +11,7 @@ struct node *makeNode(int kind, struct node *first, struct node *second, struct 
     T->pos = pos;
     return T;
 }
-
+//用于绘制抽象语法树新节点名生成
 char * newNode()
 {
     static int no=1;
@@ -19,7 +20,8 @@ char * newNode()
     return stringConcatenate("node",s);
 }
 
-void createAST(struct node *T,char * fkind)//生成.gv文件
+//生成.gv文件
+void createAST(struct node *T,char * fkind)
 {
     int i = 1;
     int j=0;
@@ -276,7 +278,7 @@ void createAST(struct node *T,char * fkind)//生成.gv文件
     }
 }
 
-
+//int转换为字符串
 char *intToChar(int num, char *str, int radix)
 { /*索引表*/
     char index[] = "0123456789ABCDEF";
@@ -1542,12 +1544,13 @@ void semanticAnalysis(struct node *T)
 
 void startSemanticAnalysis(struct node *T)
 {
+    //符号表，错误表初始化
     symbolTable.index = 0;
     errorTable.index = 0;
     symbol_scope_TX.TX[0] = 0; //外部变量在符号表中的起始序号为0
     symbol_scope_TX.top = 1;
 
-    //抽象语法树
+    //生成抽象语法树.gv文件
     fp=fopen("./tree.gv","w+");
     if(fp==NULL)
     {
