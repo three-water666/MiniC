@@ -103,29 +103,29 @@ struct errortable
 
 
 //函数声明
-struct node *makeNode(int kind,struct node *first,struct node *second, struct node *third,int pos );
-void createAST(struct node *T, char * fkind);
-char *stringConcatenate(char *s1,char *s2);
-char *newValueName();
-char *newLabelName();
-char *newTempName();
-struct irnode *getIR(int op,struct opn opn1,struct opn opn2,struct opn result);
-struct irnode *getLabelIR(char *label);
-struct irnode *getGotoIR(char *label);
-struct irnode *mergeIR(int num,...);
-void printIR(struct irnode *head);
-void semanticError(int line,char *msg1,char *msg2);
-void printSymbol();
-int searchSymbolTable(char *name);
-int fillSymbolTable(char *name,char *alias,int level,int type,char flag) ;
-int fillTemp(char *name,int level,int type,char flag);
-void dealExtvarlist(struct node *T);
-int  matchParam(int i,struct node *T);
-void boolExp(struct node *T);
-void Exp(struct node *T);
-void startSemanticAnalysis(struct node *T);
-void semanticAnalysis(struct node *T);
-char* intToChar(int num,char* str,int radix);
+struct node *makeNode(int kind,struct node *first,struct node *second, struct node *third,int pos );//生成抽象语法树节点
+void createAST(struct node *T, char * fkind);//生成.gv文件，用于可视化抽象语法树
+char *stringConcatenate(char *s1,char *s2);//字符串连接，用于起名
+char *newValueName();//返回新的变量名
+char *newLabelName();//返回新的label名
+char *newTempName();//返回新的临时变量名
+struct irnode *getIR(int op,struct opn opn1,struct opn opn2,struct opn result);//生成普通四元式节点
+struct irnode *getLabelIR(char *label);//生成label四元式节点
+struct irnode *getGotoIR(char *label);//生成跳转四元式节点
+struct irnode *mergeIR(int num,...);//连接四元式节点
+void printIR(struct irnode *head);//输出四元式
+void semanticError(int line,char *msg1,char *msg2);//记录语义错误
+void printSymbol();//输出符号表
+int searchSymbolTable(char *name);//按名字搜索符号表
+int fillSymbolTable(char *name,char *alias,int level,int type,char flag) ;//将变量加入符号表
+int fillTemp(char *name,int level,int type,char flag);//将临时变量加入符号表
+void dealExtvarlist(struct node *T);//处理函数参数列表
+int  matchParam(int i,struct node *T);//处理函数头
+void boolExp(struct node *T);//处理bool表达式
+void Exp(struct node *T);//处理表达式
+void startSemanticAnalysis(struct node *T);//开始语义分析
+void semanticAnalysis(struct node *T);//基于抽象语法树开始语义分析，生成符号表，错误表等
+char* intToChar(int num,char* str,int radix);//int转换为字符串
 
 //全局变量
 char OPTION;//minic操作
