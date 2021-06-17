@@ -515,7 +515,7 @@ void printIR(struct irnode *head)
             printf("(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             fprintf(fp1,"\"]\n");
             strcpy(c,h->result.id);
-            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s\n",f,c);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             // fprintf(fp1,"(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
@@ -525,7 +525,7 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(J\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
+            fprintf(fp1,"%s->%s\n",f,c);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -534,8 +534,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JLE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -544,8 +544,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JLT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -554,8 +554,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JGE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -564,8 +564,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JGT\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -574,8 +574,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
@@ -584,8 +584,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(JNEQ\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
             fprintf(fp1,"\"]\n");
             strcpy(c,newNode());
-            fprintf(fp1,"%s->%s",f,c);
-            fprintf(fp1,"%s->%s",f,resultstr);
+            fprintf(fp1,"%s->%s\n",f,c);
+            fprintf(fp1,"%s->%s\n",f,resultstr);
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
             break;
