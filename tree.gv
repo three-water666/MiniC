@@ -17,13 +17,91 @@ node8[label="TYPE int"]
 node7->node9
 node9[label="DEC_LIST"]
 node9->node10
-node10[label="ID b"]
-node9->node11
-node11[label="ID c"]
-node9->node12
-node12[label="ASSIGNOP"]
+node10[label="ID d"]
+node6->node11
+node11[label="DEF_LIST"]
+node11->node12
+node12[label="VAR_DEF"]
 node12->node13
-node13[label="ID d"]
+node13[label="TYPE char"]
 node12->node14
-node14[label="INT 1"]
+node14[label="DEC_LIST"]
+node14->node15
+node15[label="ID b"]
+node11->node16
+node16[label="DEF_LIST"]
+node16->node17
+node17[label="VAR_DEF"]
+node17->node18
+node18[label="TYPE int"]
+node17->node19
+node19[label="DEC_LIST"]
+node19->node20
+node20[label="ID d"]
+node5->node21
+node21[label="STM_LIST"]
+node21->node22
+node22[label="EXP_STMT"]
+node22->node23
+node23[label="ASSIGNOP"]
+node23->node24
+node24[label="ID d"]
+node23->node25
+node25[label="ID c"]
+node21->node26
+node26[label="STM_LIST"]
+node26->node27
+node27[label="EXP_STMT"]
+node26->node28
+node28[label="STM_LIST"]
+node28->node29
+node29[label="EXP_STMT"]
+node29->node30
+node30[label="FUNC_CALL fun1"]
+node28->node31
+node31[label="STM_LIST"]
+node31->node32
+node32[label="RETURN"]
+node32->node33
+node33[label="INT 0"]
+node1->node34
+node34[label="EXT_DEF_LIST"]
+node34->node35
+node35[label="FUNC_DEF"]
+node35->node36
+node36[label="TYPE int"]
+node35->node37
+node37[label="FUNC_DEC fun2"]
+node35->node38
+node38[label="COMP_STM"]
+node38->node39
+node39[label="DEF_LIST"]
+node39->node40
+node40[label="VAR_DEF"]
+node40->node41
+node41[label="TYPE int"]
+node40->node42
+node42[label="DEC_LIST"]
+node42->node43
+node43[label="ID m"]
+node34->node44
+node44[label="EXT_DEF_LIST"]
+node44->node45
+node45[label="FUNC_DEF"]
+node45->node46
+node46[label="TYPE int"]
+node45->node47
+node47[label="FUNC_DEC fun2"]
+node45->node48
+node48[label="COMP_STM"]
+node48->node49
+node49[label="DEF_LIST"]
+node49->node50
+node50[label="VAR_DEF"]
+node50->node51
+node51[label="TYPE int"]
+node50->node52
+node52[label="DEC_LIST"]
+node52->node53
+node53[label="ID n"]
 }
