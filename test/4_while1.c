@@ -1,3 +1,4 @@
+// 简单的while语句
 int main()
 {
     int a;

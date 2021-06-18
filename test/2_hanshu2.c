@@ -1,3 +1,4 @@
+// 函数声明，有参数函数调用
 int fun(int a);
 
 int main()

@@ -510,8 +510,8 @@ void printIR(struct irnode *head)
             fprintf(fp1,"(FUNCTION\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case PARAM:
-            printf("(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
-            fprintf(fp1,"(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            // printf("(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            // fprintf(fp1,"(PARAM\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case LABEL:
             printf("(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
@@ -596,9 +596,11 @@ void printIR(struct irnode *head)
             fprintf(fp1,"%s[label=\"\n",c);
             break;
         case ARG:
-            printf("(ARG\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            // printf("(ARG\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case CALL:
+            // printf("(CALL\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
+            printf("(CALL\t\t,_\t\t,_\t\t,%-12s)\n", opnstr1);
             break;
         case RETURN:
             if (h->result.kind)
