@@ -1,85 +1,13 @@
 digraph G {
+other[color="white"]
+other[label=""]
 start[label="
 (FUNCTION	,_		,_		,main        )
-(:=		,#10		,_		,temp1       )
-(:=		,temp1		,_		,v3          )
-(:=		,#0		,_		,temp2       )
-(:=		,temp2		,_		,v4          )
-(:=		,#0		,_		,temp3       )
-(:=		,temp3		,_		,v1          )
-(+		,v3		,#1		,v3          )
-(+		,v3		,v4		,temp5       )
-(:=		,temp5		,_		,v3          )
+(:=		,#1		,_		,temp1       )
+(+		,v3		,temp1		,temp2       )
+(:=		,temp2		,_		,v3          )
 "]
-start->label8
-label8[label="
-(LABEL		,_		,_		,label8      )
-(:=		,#0		,_		,temp6       )
-(JGT		,v3		,temp6		,label7      )
-"]
-label8->node95
-label8->label7
-node95[label="
-(J		,_		,_		,label1      )
-"]
-node95->label1
-other[label="
-"]
-label7[label="
-(LABEL		,_		,_		,label7      )
-(:=		,#1		,_		,temp7       )
-(:=		,temp7		,_		,v6          )
-(:=		,#3		,_		,temp8       )
-(JGT		,v4		,temp8		,label11     )
-"]
-label7->node96
-label7->label11
-node96[label="
-(J		,_		,_		,label10     )
-"]
-node96->label10
-other[label="
-"]
-label11[label="
-(LABEL		,_		,_		,label11     )
-(J		,_		,_		,label1      )
-"]
-label11->label1
-other[label="
-"]
-label10[label="
-(LABEL		,_		,_		,label10     )
-(:=		,#1		,_		,temp9       )
-(-		,v3		,temp9		,temp10      )
-(:=		,temp10		,_		,v3          )
-(:=		,#5		,_		,temp11      )
-(JGT		,v6		,temp11		,label14     )
-"]
-label10->node97
-label10->label14
-node97[label="
-(J		,_		,_		,label13     )
-"]
-node97->label13
-other[label="
-"]
-label14[label="
-(LABEL		,_		,_		,label14     )
-(J		,_		,_		,label8      )
-"]
-label14->label8
-other[label="
-"]
-label13[label="
-(LABEL		,_		,_		,label13     )
-(:=		,#1		,_		,temp12      )
-(+		,v3		,temp12		,temp13      )
-(:=		,temp13		,_		,v3          )
-(J		,_		,_		,label8      )
-"]
-label13->label8
-other[label="
-"]
+start->label1
 label1[label="
 (LABEL		,_		,_		,label1      )
 "]

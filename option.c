@@ -418,6 +418,8 @@ void printIR(struct irnode *head)
     struct irnode *h = head;
     char f[100];
     char c[100];
+    fprintf(fp1,"other[color=\"white\"]\n");
+    fprintf(fp1,"other[label=\"\"]\n");
     fprintf(fp1,"start[label=\"\n");
     strcpy(f,"start");
     strcpy(c,"start");
