@@ -515,19 +515,23 @@ void printIR(struct irnode *head)
             printf("(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             fprintf(fp1,"\"]\n");
             strcpy(c,h->result.id);
-            fprintf(fp1,"%s->%s\n",f,c);
+            if(f[0]!=' ')
+            {
+                fprintf(fp1,"%s->%s\n",f,c);
+            }
             strcpy(f,c);
             fprintf(fp1,"%s[label=\"\n",c);
-            // fprintf(fp1,"(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
+            fprintf(fp1,"(LABEL\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             break;
         case GOTO:
             printf("(J\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             fprintf(fp1,"(J\t\t,_\t\t,_\t\t,%-12s)\n", h->result.id);
             fprintf(fp1,"\"]\n");
-            strcpy(c,newNode());
-            fprintf(fp1,"%s->%s\n",f,c);
-            strcpy(f,c);
-            fprintf(fp1,"%s[label=\"\n",c);
+            // strcpy(c,newNode());
+            fprintf(fp1,"%s->%s\n",f,resultstr);
+            strcpy(f," ");
+            // fprintf(fp1,"%s[label=\"\n",c);
+            fprintf(fp1,"other[label=\"\n");
             break;
         case JLE: // <=
             printf("(JLE\t\t,%s\t\t,%s\t\t,%-12s)\n", opnstr1, opnstr2, resultstr);
