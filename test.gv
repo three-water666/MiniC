@@ -1,8 +1,0 @@
-digraph G {
-node1[label="
-a=a+1
-b=b+1
-"]
-    node1->node2
-    node2[label="b=b+1"]
-}

@@ -19,6 +19,8 @@ clean:
 	rm -f minic 
 	rm -f tree.png
 	rm -f tree.gv
+	rm -f flowGraph.png
+	rm -f flowGraph.gv
 
 ast:
 	dot -Tpng tree.gv -o tree.png

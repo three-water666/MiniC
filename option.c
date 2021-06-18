@@ -1399,7 +1399,7 @@ void semanticAnalysis(struct node *T)
                 semanticAnalysis(T->ptr[1]);       //处理复合语句的语句序列
                 T->ir = mergeIR(2, T->ir, T->ptr[1]->ir);
             }
-            // if (OPTION == 's')
+            if (OPTION == 's')
                 printSymbol();                                              //c在退出一个符合语句前显示的符号表
                                                                            //  printSymbol();
             LEV--;                                                         //出复合语句，层号减1
@@ -1635,82 +1635,73 @@ void startSemanticAnalysis(struct node *T)
     symbol_scope_TX.top = 1;
 
     //生成抽象语法树.gv文件
-    fp=fopen("./tree.gv","w+");
-    if(fp==NULL)
+    // fp=fopen("./tree.gv","w+");
+    // if(fp==NULL)
+    // {
+    //     printf("文件打开失败\n");
+    //     return;
+    // }
+    // fprintf(fp,"digraph G {\n");
+    // createAST(T," ");
+    // fprintf(fp,"}\n");
+    // fclose(fp);
+    // printf("\n***********************************************************************************\n");
+    // //符号表
+    // semanticAnalysis(T);
+    // //四元式
+    // printf("\n***********************************************************************************\n");
+    // fp1=fopen("./flowGraph.gv","w+");
+    // if(fp1==NULL)
+    // {
+    //     printf("文件打开失败\n");
+    //     return;
+    // }
+    // fprintf(fp1,"digraph G {\n");
+    // printIR(T->ir);
+    // fprintf(fp1,"}\n");
+    // fclose(fp1);
+    // //错误信息
+    // printf("\n***********************************************************************************\n");
+    // prnErr();
+    // return;
+
+    //生成抽象语法树.gv文件ast
+    if(OPTION=='a')
     {
-        printf("文件打开失败\n");
-        return;
+        fp=fopen("./tree.gv","w+");
+        if(fp==NULL)
+        {
+            printf("文件打开失败\n");
+            return;
+        }
+        fprintf(fp,"digraph G {\n");
+        createAST(T," ");
+        fprintf(fp,"}\n");
+        fclose(fp);
     }
-    fprintf(fp,"digraph G {\n");
-    createAST(T," ");
-    fprintf(fp,"}\n");
-    fclose(fp);
-    printf("\n***********************************************************************************\n");
-    //符号表
-    semanticAnalysis(T);
-    //四元式
-    printf("\n***********************************************************************************\n");
-    fp1=fopen("./flowGraph.gv","w+");
-    if(fp1==NULL)
+    // printf("\n***********************************************************************************\n");
+    //符号表sym
+    if(OPTION=='s')
     {
-        printf("文件打开失败\n");
-        return;
+        semanticAnalysis(T);
     }
-    fprintf(fp1,"digraph G {\n");
-    printIR(T->ir);
-    fprintf(fp1,"}\n");
-    fclose(fp1);
+    //四元式ir
+    // printf("\n***********************************************************************************\n");
+    if(OPTION=='i')
+    {
+        fp1=fopen("./flowGraph.gv","w+");
+        if(fp1==NULL)
+        {
+            printf("文件打开失败\n");
+            return;
+        }
+        fprintf(fp1,"digraph G {\n");
+        semanticAnalysis(T);
+        printIR(T->ir);
+        fprintf(fp1,"}\n");
+        fclose(fp1);
+    }
     //错误信息
     printf("\n***********************************************************************************\n");
     prnErr();
-    return;
-    // if (OPTION == 's')
-    // {
-    //     OPTION = ' ';
-    //     semanticAnalysis(T);
-    //     OPTION = 's';
-    // }
-    // else
-    // {
-    //     semanticAnalysis(T);
-    // }
-    // //没有错误
-    // if (errorTable.index == 0)
-    // {
-    //     //输出抽象语法树
-    //     if (OPTION == 'a')
-    //     {
-    //         createAST(T, 0);
-    //         return;
-    //     }
-    //     //输出中间语言
-    //     if (OPTION == 'i')
-    //     {
-    //         printIR(T->ir);
-    //         return;
-    //     }
-    //     //输出符号表
-    //     if (OPTION == 's')
-    //     {
-    //         semanticAnalysis(T);
-    //         return;
-    //     }
-
-    //     //输出全部信息
-    //     if (OPTION == ' ')
-    //     {
-    //         createAST(T, 0);
-    //         printf("\n***********************************************************************************\n");
-    //         OPTION = 's';
-    //         semanticAnalysis(T);
-    //         printf("\n***********************************************************************************\n");
-    //         printIR(T->ir);
-    //         return;
-    //     }
-    // }
-    // else
-    // {
-    //     prnErr();
-    //     return;
-    // }
 }
