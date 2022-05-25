@@ -1,0 +1,137 @@
+//当前文法问题
+//1.不支持函数声明
+//2.不支持 break continue语句 
+
+
+
+program-> ExtDefList; 
+
+/*零个或多个ExtDef*/
+ExtDefList->  
+        | ExtDef ExtDefList 
+        ; 
+
+/*表示全局变量，结构体，函数定义*/
+ExtDef-> Specifier ExtDecList SEMI    //全局变量
+        //|Specifier SEMI  //结构体当前未实现
+        |Specifier FuncDec CompSt          //函数定义
+        | error SEMI   
+        ;
+
+/*零个或多个变量的定义VarDec*/
+ExtDecList-> VarDec  
+        | VarDec COMMA ExtDecList 
+        ; 
+
+
+/*---------------------3.Specifiers---------------------*/
+/*类型描述符,如int float char*/
+Specifier-> TYPE  
+        //|结构体
+        ;    
+
+
+/*---------------------4.Declarators---------------------*/
+/*对一个变量的定义*/ 
+VarDec->  ID    //标识符，如a
+        | VarDec LB INT RB         //数组，如a[10]
+        ;
+
+/*函数头的定义*/
+FuncDec-> ID LP VarList RP //含参数函数
+        |ID LP  RP   //无参数函数
+        ;  
+
+/*参数列表*/
+VarList-> ParamDec  //一个形参的定义
+        | ParamDec COMMA  VarList  
+        ;
+
+/*一个形参的定义*/
+ParamDec-> Specifier VarDec         
+        ;
+
+
+
+/*---------------------5.Statements---------------------*/
+/*花括号括起来的语句块*/
+CompSt-> LC DefList StmList RC    
+        ;
+
+/*一系列语句列表*/
+StmList->   
+        | Stmt StmList  
+        ;
+
+/*单条语句*/
+Stmt-> Exp SEMI    //一条表达式
+      | CompSt            //另一个语句块
+      | RETURN Exp SEMI   //返回语句
+      | IF LP Exp RP Stmt %prec LOWER_THEN_ELSE    //if语句
+      | IF LP Exp RP Stmt ELSE Stmt   //if-else 语句
+      | WHILE LP Exp RP Stmt //while 语句
+      ;
+
+/*---------------------6.Local Definitions---------------------*/
+/*一系列变量定义，如int a;float b;int d[10]*/
+DefList-> 
+        | Def DefList 
+        ;
+
+/*一个变量定义*/
+Def-> Specifier DecList SEMI 
+     ;
+     
+/*如int a,b,c*/
+DecList-> Dec  
+        | Dec COMMA DecList  
+	;
+
+/*变量名或者带初始化*/
+Dec->   VarDec 
+       | VarDec ASSIGNOP Exp  
+       ;
+
+
+
+/*---------------------7.Expressions---------------------*/
+/*运算表达式*/
+Exp->  //二元运算
+        Exp ASSIGNOP Exp //二元运算
+      | Exp AND Exp   //逻辑与
+      | Exp OR Exp    //逻辑或
+      | Exp RELOP Exp //关系表达式
+      | Exp PLUS Exp  //四则运算
+      | Exp MINUS Exp 
+      | Exp STAR Exp  
+      | Exp DIV Exp   
+      //-------额外实现-------
+      | Exp PLUSASS Exp   //复合加
+      | Exp SELFPLUS        //自增
+      | SELFPLUS Exp       //自增
+      | Exp MINUSASS Exp  //复合减
+      | Exp SLEFMINUS   //自减
+      | SLEFMINUS Exp  //自减
+      //-------以上-------
+
+      //一元运算
+      | LP Exp RP     //括号表达式
+      | MINUS Exp %prec UMINUS   //取负
+      | NOT Exp       //逻辑或
+      
+      //不包含运算符，较特殊的表达式
+      | ID LP Args RP   //函数调用(含参)
+      | ID LP RP      //函数调用(无参)
+      | ID LB INT RB  //数组索引调用
+      
+      //最基本表达式
+      | ID            //普通变量
+      | INT                 //整常数常量
+      | FLOAT          //浮点数常量
+      | CHAR           //字符常量
+      ;
+
+/*实参列表*/
+Args->  Exp COMMA Args    
+       | Exp               
+       ;
